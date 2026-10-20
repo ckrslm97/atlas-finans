@@ -1,0 +1,35 @@
+#detail{overflow-x:hidden;overflow-y:auto}
+#detail .detail-body{min-width:0}
+#detail .metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;background:transparent;border:0;border-radius:0;overflow:visible;margin-bottom:18px}
+#detail .metric-cell{display:flex;flex-direction:column;justify-content:space-between;gap:15px;min-width:0;min-height:112px;padding:15px 16px;border:1px solid #dfe6f0;border-radius:14px;background:#fff;box-shadow:0 2px 8px #1b2d5108}
+#detail .metric-heading{display:flex;align-items:center;gap:10px;min-width:0}
+#detail .metric-icon{display:inline-grid;place-items:center;flex:none;width:32px;height:32px;border-radius:10px;background:#edf2ff;color:#2858ca;font:800 17px/1 Manrope,sans-serif}
+#detail .metric-cell small{display:block;min-width:0;color:#43516b;font-size:13px;font-weight:800;line-height:1.25;letter-spacing:0;overflow-wrap:anywhere}
+#detail .metric-cell b{font-size:22px;font-weight:800;line-height:1.15;letter-spacing:-.025em;white-space:normal;overflow-wrap:anywhere}
+#detail .metric-cell b.up{color:var(--green)}
+#detail .metric-cell b.down{color:var(--red)}
+#detail .metric-direction{font-size:19px;margin-right:5px;vertical-align:1px}
+#detail .metric-cell:has(b.up) .metric-icon{background:var(--green-bg);color:var(--green)}
+#detail .metric-cell:has(b.down) .metric-icon{background:var(--red-bg);color:var(--red)}
+#detail .panel{min-width:0;box-shadow:0 2px 8px #1b2d5106}
+#detail .two-col{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#detail .two-col>.panel{min-width:0}
+#detail .section-head{gap:12px;min-width:0}
+#detail .section-head h3{display:flex;align-items:center;gap:9px;color:#1b2a43;font-size:19px;font-weight:850;line-height:1.25;letter-spacing:-.025em}
+#detail .section-head h3::before{content:'◇';display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:8px;background:#edf2ff;color:#3159bb;font-size:17px;font-weight:800}
+#detail .section-head small{font-size:12px;font-weight:600}
+#detail .v1-memo-head span,#detail .v1-periods span,#detail .v1-risk-grid span{color:#485670;font-size:13px;font-weight:800;line-height:1.3}
+#detail .v1-memo-head b,#detail .v1-periods b,#detail .v1-risk-grid b{display:block;margin-top:5px;color:#1c2a42;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+#detail .v1-periods b.up{color:var(--green)}
+#detail .v1-periods b.down{color:var(--red)}
+#detail .v1-memo-head>div,#detail .v1-periods>div,#detail .v1-risk-grid>div{min-width:0;border:1px solid #e3e9f5}
+#detail .news-score-grid>div{min-width:0}
+#detail .news-score-grid span,#detail .financial-factor span,#detail .score-parts span{font-size:13px;font-weight:750;color:#4a5972}
+#detail .financial-verdict>span{font-size:14px;font-weight:800;color:#384965}
+#detail .financial-factor b,#detail .score-parts b{font-size:14px;font-weight:800}
+#detail .holdings-heading{margin:19px 0 9px;color:#263956;font:800 16px/1.35 Manrope,sans-serif}
+#detail .holdings-source{margin-top:12px}
+#detail .detail-price+.up{color:var(--green);font-weight:800}
+#detail .detail-price+.down{color:var(--red);font-weight:800}
+@media(max-width:850px){#detail .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#detail .two-col{grid-template-columns:1fr}#detail .v1-memo-head{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){#detail .metric-grid{gap:8px}#detail .metric-cell{padding:12px;min-height:104px;gap:11px}#detail .metric-icon{width:28px;height:28px;font-size:15px}#detail .metric-heading{gap:7px}#detail .metric-cell small{font-size:12px}#detail .metric-cell b{font-size:19px}#detail .section-head h3{font-size:17px}#detail .v1-memo-head b{font-size:15px}}
