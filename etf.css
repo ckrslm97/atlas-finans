@@ -11,3 +11,32 @@
 .etf-compare-select{display:flex;gap:9px;flex-wrap:wrap;max-height:224px;overflow-y:auto;margin:14px 0;padding:4px}.etf-compare-select label{border:1px solid #d9e2ef;border-radius:8px;padding:8px 11px;font-weight:700}.etf-compare-select label:has(input:checked){background:#edf2ff;border-color:#b9c9f7;color:#2453ce}.etf-compare-select input{margin-right:7px}.etf-compare-select label[hidden],.etf-table tr[hidden]{display:none}
 .etf-trade-form{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.etf-trade-form label{display:grid;gap:6px;font-weight:700}.etf-trade-form select,.etf-trade-form input{height:42px;padding:7px;border:1px solid #d8e0ec;border-radius:8px}.etf-trade-form button{height:42px}
 @media(max-width:1300px){.etf-kpis{grid-template-columns:repeat(3,1fr)}.etf-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.etf-kpis,.etf-grid{grid-template-columns:1fr 1fr}.etf-kpi{padding:14px;min-height:130px}.etf-kpi strong{font-size:23px}}@media(max-width:480px){.etf-kpis,.etf-grid{grid-template-columns:1fr}}
+
+/* ETF details use the same layout as the stock details. Keep the dialog itself scrollable. */
+#detail{width:min(1120px,calc(100vw - 24px));max-width:1120px;max-height:90dvh;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+#detail-content,#detail .detail-body,#detail .detail-head,#detail .panel{min-width:0;max-width:100%}
+#detail .metric-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+#detail .metric-cell{min-width:0}
+#detail .metric-cell b{white-space:normal;overflow-wrap:anywhere}
+#detail .etf-chart{height:280px;background:#f8faff}
+#detail .news-title{min-width:0}
+#detail .news-title a{min-width:0;overflow-wrap:anywhere}
+#detail .events h4{font-size:15px;margin:0 0 8px}
+#detail .v1-periods{grid-template-columns:repeat(5,minmax(0,1fr))}
+#detail .factor-bars>div{grid-template-columns:minmax(100px,1fr) minmax(50px,2fr) 48px}
+#detail .financial-table td:first-child{width:55%}
+@media(max-width:700px){
+ #detail{width:calc(100vw - 12px);max-height:96dvh;border-radius:14px}
+ #detail .detail-head{padding:14px 16px}
+ #detail .detail-head h2{font-size:23px}
+ #detail .detail-body{padding:14px}
+ #detail .detail-quote{align-items:flex-start;flex-wrap:wrap}
+ #detail .detail-price{font-size:30px}
+ #detail .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #detail .v1-memo-head{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #detail .v1-periods{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #detail .etf-chart{height:220px}
+ #detail .section-head{align-items:flex-start;flex-wrap:wrap}
+ #detail .chart-range{flex-wrap:wrap}
+ #detail .news-title{flex-wrap:wrap}
+}
