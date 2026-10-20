@@ -31,5 +31,7 @@
 #detail .holdings-source{margin-top:12px}
 #detail .detail-price+.up{color:var(--green);font-weight:800}
 #detail .detail-price+.down{color:var(--red);font-weight:800}
+#detail .detail-price+.up::before{content:'↗';margin-right:5px}
+#detail .detail-price+.down::before{content:'↘';margin-right:5px}
 @media(max-width:850px){#detail .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#detail .two-col{grid-template-columns:1fr}#detail .v1-memo-head{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){#detail .metric-grid{gap:8px}#detail .metric-cell{padding:12px;min-height:104px;gap:11px}#detail .metric-icon{width:28px;height:28px;font-size:15px}#detail .metric-heading{gap:7px}#detail .metric-cell small{font-size:12px}#detail .metric-cell b{font-size:19px}#detail .section-head h3{font-size:17px}#detail .v1-memo-head b{font-size:15px}}
