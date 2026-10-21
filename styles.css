@@ -113,6 +113,8 @@ th{ text-transform:none;letter-spacing:.01em }
 @media(max-width:700px){html,body{max-width:100%;overflow-x:hidden}.order-grid,.order-grid>*{min-width:0;max-width:100%}.order-grid .panel{width:100%;overflow:hidden}.order-form{grid-template-columns:1fr}.order-form .field:first-child{grid-column:auto}.section-head{flex-wrap:wrap}.section-head>#compare-ranges,.chart-range{max-width:100%;overflow-x:auto;flex-wrap:nowrap}.page-head{flex-wrap:wrap}.page-head .right{max-width:100%;width:100%;text-align:left}}
 .order-form{grid-template-columns:minmax(180px,2fr) repeat(3,minmax(100px,1fr))}
 .order-form .field[hidden]{display:none!important}
+.order-quote[hidden]{display:none!important}
+.trade-preview-button{margin-top:14px;margin-bottom:4px}
 @media(max-width:1100px){.order-form{grid-template-columns:repeat(2,minmax(0,1fr))}.order-form .field:first-child{grid-column:1/-1}}
 @media(max-width:700px){.order-form{grid-template-columns:1fr}.order-form .field:first-child{grid-column:auto}}
 .intelligence-grid>*{min-width:0}.panel{min-width:0}.table-wrap{width:100%;max-width:100%;overflow-x:auto}

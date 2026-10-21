@@ -14,6 +14,8 @@
 .etf-trade-form>label{min-width:0;color:#34455f;font-size:15px}
 .etf-trade-form select,.etf-trade-form input{width:100%;font-size:16px}
 .etf-trade-form [hidden]{display:none!important}
+.etf-order-quote[hidden]{display:none!important}
+.etf-trade-form .trade-preview-button{grid-column:1/-1;justify-self:start}
 .etf-trade-mode{display:grid;gap:6px}.etf-trade-mode>span{color:#34455f;font-size:15px;font-weight:700}.etf-trade-mode>div{display:flex;gap:4px;padding:3px;border:1px solid #d8e0ec;border-radius:9px;background:#f4f7fc}.etf-trade-mode button{flex:1;height:35px;padding:5px 8px;border:0;background:transparent;font-size:14px}.etf-trade-mode button.active{background:#fff;color:#275ce7;box-shadow:0 1px 5px #18243a18}
 .etf-order-quote{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;padding:15px 18px;border:1px solid #e2e9f3;border-radius:12px;background:#f7faff}.etf-order-quote>div{display:grid;gap:2px}.etf-order-quote>div:last-child{text-align:right}.etf-order-quote small{font-size:13px}.etf-order-quote strong{font-size:21px;font-weight:850}
 .etf-trade-actions{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:15px}.etf-trade-actions small{font-size:13px;line-height:1.4}.etf-trade-actions button{min-width:145px}.etf-trade-form .error-text{grid-column:1/-1;min-height:22px;margin:0;font-size:14px;font-weight:700}
