@@ -202,6 +202,7 @@ function renderComparisonResults(){
 }
 async function loadPortfolio(){try{PORT=await api('/api/portfolio');BIST_PORTFOLIO_SYNCING=false;if(location.hash==='#simulation')renderSimulation();}catch(e){toast(e.message);}}
 function renderSimulation(){
+ if(BIST_PORTFOLIO_SYNCING){$('#main').innerHTML='<div class="loading">Bulut portföyü eşitleniyor…</div>';return;}
  const p=PORT;if(!p){$('#main').innerHTML='<div class="loading">Portföy yükleniyor…</div>';loadPortfolio();return;}
  const tradeCode=sessionStorage.getItem('tradeCode')||D.stocks[0].kod;sessionStorage.removeItem('tradeCode');const s=D.stocks.find(v=>v.kod===tradeCode)||D.stocks[0];
  const localKey=d=>{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d)),v=Object.fromEntries(parts.map(x=>[x.type,x.value]));return `${v.year}-${v.month}-${v.day}`;},inRange=d=>{const day=localKey(d);return (!portfolioFrom||day>=portfolioFrom)&&(!portfolioTo||day<=portfolioTo);};const visibleTrades=p.trades.filter(t=>inRange(t.executed_at)),visibleAcq=(p.acquisitions||[]).filter(t=>inRange(t.boughtAt)),visibleDis=(p.disposals||[]).filter(t=>inRange(t.soldAt));
@@ -242,7 +243,7 @@ async function init(){
    if(location.hash==='#simulation')renderSimulation();
   }
   saveSnapshot();
- }catch(e){if(D)toast('Son kayıt gösteriliyor; bulut bağlantısı yenilenemedi.');else{$('#main').innerHTML=`<div class="empty">${esc(e.message)}<br><button id="retry" style="margin-top:18px">Tekrar dene</button></div>`;$('#retry').onclick=init;}}
+ }catch(e){if(D){if(location.hash==='#simulation'){$('#main').innerHTML='<div class="empty">Bulut portföyü alınamadı. <button id="retry">Tekrar dene</button></div>';$('#retry').onclick=init;}else toast('Son kayıt gösteriliyor; bulut bağlantısı yenilenemedi.');}else{$('#main').innerHTML=`<div class="empty">${esc(e.message)}<br><button id="retry" style="margin-top:18px">Tekrar dene</button></div>`;$('#retry').onclick=init;}}
  finally{clearTimeout(timer);}
 }
 $('#refresh').onclick=async()=>{const b=$('#refresh');b.disabled=true;b.innerHTML='↻ Yeni veriler alınıyor…';if(CLOUD){try{const result=await api('/api/refresh',{});D=await api('/api/data');PORT=await api('/api/portfolio');BIST_PORTFOLIO_SYNCING=false;saveSnapshot();route();toast(result.ai?'Fiyatlar, skorlar ve yapay zekâ destekli analiz yenilendi.':'Fiyatlar, skorlar ve analist değerlendirmeleri yenilendi.');}catch(e){toast(e.message);}finally{b.disabled=false;b.innerHTML='↻ <span>Fiyatları yenile</span>';}return;}try{await api('/api/refresh',{});const poll=setInterval(async()=>{try{const state=await api('/api/status');b.innerHTML=`↻ ${state.done}/${state.total}`;if(!state.running){clearInterval(poll);b.disabled=false;b.innerHTML='↻ <span>Fiyatları yenile</span>';if(state.error)toast(state.error);else{D=await api('/api/data');PORT=await api('/api/portfolio');route();toast('Fiyatlar ve kaynak kontrolü yenilendi.');}}}catch(e){clearInterval(poll);b.disabled=false;b.textContent='↻ Fiyatları yenile';toast(e.message);}},800);}catch(e){b.disabled=false;b.textContent='↻ Fiyatları yenile';toast(e.message);}};

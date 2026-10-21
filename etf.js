@@ -89,6 +89,7 @@ function compare(){const selected=[...COMPARE].map(symbol).filter(Boolean),metri
 let ETF_DRAFT={code:'',side:'buy',mode:'qty',qty:'1',amount:'5000'};
 const tl=v=>Number.isFinite(v)?`${fmt(v)} ₺`:'—';
 function simulation(){
+ if(ETF_PORTFOLIO_SYNCING){$('#main').innerHTML='<div class="loading">Bulut portföyü eşitleniyor…</div>';return;}
  if(!PORT){$('#main').innerHTML='<div class="loading">ETF portföyü yükleniyor…</div>';api('portfolio').then(p=>{PORT=p;ETF_PORTFOLIO_SYNCING=false;simulation();}).catch(error=>{$('#main').innerHTML=`<div class="empty">${esc(error.message)} <button id="etf-portfolio-retry">Tekrar dene</button></div>`;$('#etf-portfolio-retry').onclick=simulation;});return;}
  const p=PORT,positions=p.positions||[],trades=p.trades||[],cash=p.cashCents/100,equity=p.equityCents/100,profit=p.profitCents/100;
  const chosen=sessionStorage.getItem('etfTradeCode');if(chosen){ETF_DRAFT.code=chosen;sessionStorage.removeItem('etfTradeCode');}
@@ -219,7 +220,7 @@ async function init(){
   if(!DATA||!window.AtlasCache.isFresh(cached)){const [data,portfolio]=await Promise.all([api('data'),api('portfolio')]);DATA=data;PORT=portfolio;ETF_PORTFOLIO_SYNCING=false;route();}
   else{PORT=await api('portfolio');ETF_PORTFOLIO_SYNCING=false;if(location.hash==='#simulation')simulation();}
   saveSnapshot();
- }catch(e){if(DATA)toast('Son kayıt gösteriliyor; bulut bağlantısı yenilenemedi.');else{$('#main').innerHTML=`<div class="empty">${esc(e.message)}<br><button id="retry">Tekrar dene</button></div>`;$('#retry').onclick=init;}}
+ }catch(e){if(DATA){if(location.hash==='#simulation'){$('#main').innerHTML='<div class="empty">Bulut portföyü alınamadı. <button id="retry">Tekrar dene</button></div>';$('#retry').onclick=init;}else toast('Son kayıt gösteriliyor; bulut bağlantısı yenilenemedi.');}else{$('#main').innerHTML=`<div class="empty">${esc(e.message)}<br><button id="retry">Tekrar dene</button></div>`;$('#retry').onclick=init;}}
  finally{clearTimeout(timer);}
 }
 $('#refresh').onclick=async()=>{const b=$('#refresh');b.disabled=true;try{await api('refresh',{});DATA=await api('data');PORT=await api('portfolio');ETF_PORTFOLIO_SYNCING=false;saveSnapshot();route();toast('ETF verileri buluttan yenilendi.');}catch(e){toast(e.message);}finally{b.disabled=false;}};
