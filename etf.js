@@ -262,5 +262,5 @@ async function init(){
  }catch(e){if(DATA){if(location.hash==='#simulation'){$('#main').innerHTML='<div class="empty">Bulut portföyü alınamadı. <button id="retry">Tekrar dene</button></div>';$('#retry').onclick=init;}else toast('Son kayıt gösteriliyor; bulut bağlantısı yenilenemedi.');}else{$('#main').innerHTML=`<div class="empty">${esc(e.message)}<br><button id="retry">Tekrar dene</button></div>`;$('#retry').onclick=init;}}
  finally{clearTimeout(timer);}
 }
-$('#refresh').onclick=async()=>{const b=$('#refresh');b.disabled=true;try{await api('refresh',{});DATA=await api('data');PORT=await api('portfolio');ETF_PORTFOLIO_SYNCING=false;saveSnapshot();route();toast('ETF fiyatları ve teknik skor güncellendi. Haber puanı son taramadan korundu.');}catch(e){toast(e.message);}finally{b.disabled=false;}};
+$('#refresh').onclick=async()=>{const b=$('#refresh');b.disabled=true;try{await api('refresh',{});const [nextData,nextPort]=await Promise.all([api('data'),api('portfolio')]);DATA=nextData;PORT=nextPort;ETF_PORTFOLIO_SYNCING=false;saveSnapshot();route();toast('ETF fiyatları ve teknik skor güncellendi. Haber puanı son taramadan korundu.');}catch(e){toast(e.message);}finally{b.disabled=false;}};
 init();
