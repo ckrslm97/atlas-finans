@@ -80,3 +80,4 @@
  #detail .chart-range{flex-wrap:wrap}
  #detail .news-title{flex-wrap:wrap}
 }
+.metric-bar-chart{display:grid;gap:14px;margin:20px 0 8px}.metric-bar-row{display:grid;grid-template-columns:88px minmax(0,1fr) 80px;align-items:center;gap:12px;font-size:16px}.metric-bar-row strong{font-weight:850;color:#1e2a40}.metric-bar-row b{text-align:right;font-variant-numeric:tabular-nums}.metric-bar-track{height:14px;border-radius:999px;background:#e9eef6;overflow:hidden}.metric-bar-track i{display:block;height:100%;border-radius:999px;background:#275ce7}.metric-bar-track i.negative{background:#c94557}@media(max-width:520px){.metric-bar-row{grid-template-columns:58px minmax(0,1fr) 60px;gap:8px;font-size:13px}}
