@@ -245,11 +245,12 @@ async function init(){
  if(cached?.value?.data?.stocks?.length){D=cached.value.data;PORT=cached.value.portfolio||null;USER=cached.value.user||USER;clearTimeout(timer);route();}
  try{
   if(!D||!window.AtlasCache.isFresh(cached)){
-   const accountPromise=Promise.all([api('/api/portfolio'),api('/api/user-state')]).catch(error=>({error}));
+   const openingSimulation=location.hash==='#simulation';
+   const earlyAccount=openingSimulation?Promise.all([api('/api/portfolio'),api('/api/user-state')]).catch(error=>({error})):null;
    const next=await api('/api/data');
    if(!next.stocks?.length)throw Error('Henüz veri hazırlanmadı. Biraz sonra yenileyin.');
-   D=next;if(location.hash!=='#simulation')route();
-   const loaded=await accountPromise;if(loaded.error)throw loaded.error;
+   D=next;if(!openingSimulation)route();
+   const loaded=await (earlyAccount||Promise.all([api('/api/portfolio'),api('/api/user-state')]).catch(error=>({error})));if(loaded.error)throw loaded.error;
    [PORT,USER]=loaded;BIST_PORTFOLIO_SYNCING=false;
    if(location.hash==='#simulation'||location.hash==='#intelligence')route();
   }else{

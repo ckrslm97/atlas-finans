@@ -251,9 +251,10 @@ async function init(){
  if(cached?.value?.data?.stocks?.length){DATA=cached.value.data;PORT=cached.value.portfolio||null;clearTimeout(timer);route();}
  try{
   if(!DATA||!window.AtlasCache.isFresh(cached)){
-   const portfolioPromise=api('portfolio').catch(error=>({error}));
-   DATA=await api('data');if(location.hash!=='#simulation')route();
-   const portfolio=await portfolioPromise;if(portfolio.error)throw portfolio.error;
+   const openingSimulation=location.hash==='#simulation';
+   const earlyPortfolio=openingSimulation?api('portfolio').catch(error=>({error})):null;
+   DATA=await api('data');if(!openingSimulation)route();
+   const portfolio=await (earlyPortfolio||api('portfolio').catch(error=>({error})));if(portfolio.error)throw portfolio.error;
    PORT=portfolio;ETF_PORTFOLIO_SYNCING=false;if(location.hash==='#simulation')route();
   }
   else{PORT=await api('portfolio');ETF_PORTFOLIO_SYNCING=false;if(location.hash==='#simulation')simulation();}
