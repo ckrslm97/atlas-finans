@@ -1,0 +1,10 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {combined,testStats}=require('../global-model.js');
+const p=(equity,profit,capital)=>({currency:'TRY',equityCents:equity,profitCents:profit,contributedCents:capital});
+test('BIST and ETF capital / profit combined exactly in cents',()=>{assert.deepEqual(combined([p(12000,2000,10000),p(8000,-2000,10000)]),{complete:true,equityCents:20000,profitCents:0,returnPct:0});});
+test('missing prices or a missing account are never treated as zero',()=>{assert.equal(combined([p(12000,2000,10000),p(null,null,10000)]).equityCents,null);assert.equal(combined([p(12000,2000,10000)]).complete,false);});
+test('currency mismatch and non-finite values cannot inflate global totals',()=>{assert.equal(combined([p(12000,2000,10000),{...p(8000,-2000,10000),currency:'USD'}]).complete,false);assert.equal(combined([p(Infinity,2000,10000),p(0,0,0)]).complete,false);});
+test('zero contributions have no return percentage',()=>{assert.equal(combined([p(0,0,0),p(0,0,0)]).returnPct,null);});
+const row=(date,better,available=true,code='ABC')=>({namespace:'bist',code,model_version:'v1',observed_at:date,report:{forecast:{available,test:{samples:8,beatsBaselines:better}}}});
+test('latest test only: overlapping repeated runs do not inflate success',()=>{assert.deepEqual(testStats([row('2026-11-12',true),row('2026-11-13',false),row('2026-11-10',true)]),{unique:1,tested:1,better:0});});
+test('insufficient forecasts are not counted as evaluated or successful',()=>{assert.deepEqual(testStats([row('2026-11-13',true,false),row('2026-11-13',true,true,'DEF')]),{unique:2,tested:1,better:1});});
+test('BIST and ETF with the same ticker remain separate test identities',()=>{assert.deepEqual(testStats([row('2026-11-13',true),{...row('2026-11-13',false),namespace:'etf'}]),{unique:2,tested:2,better:1});});
