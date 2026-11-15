@@ -1,5 +1,25 @@
 # Unified Atlas workspace — 2026-11-14
 
+## Regional release update — 2026-11-15
+
+The US/Europe limitations below describe the earlier release. They now have
+dedicated **ABD Atlas** (`us.html`) and **Avrupa Atlas** (`europe.html`) pages
+derived from the BIST layout by `scripts/build-equity-pages.cjs`. Run the generator
+after shared BIST UI changes. Both contain market, intelligence, comparison,
+simulation and guide sections. Prices/history cover 16 selected companies each;
+Yahoo Finance is the single price source. SEC annual statement coverage is 15/16
+US and 3/16 Europe, with unsupported fields explicitly absent. Native USD/EUR
+accounts and research archives are separate; Global shows all four portfolios
+without adding unlike currencies. Regional automatic price/news/filing refreshes
+are installed. LIFE OS links directly to these pages. Daily and per-code score
+histories are persisted, starting when observations were actually made.
+
+The release passed 42 backend and seven frontend tests. Desktop/mobile checks
+covered all five regional sections, filter, details and comparison. Both repositories
+preserve `before-us-eu-markets-20261114` for rollback. This update supersedes the
+earlier statements about missing regional price support; it does not imply full
+fundamental coverage or a proven profitable trading model.
+
 Global Atlas now uses the same styles, typography, top navigation and market switcher as BIST / ETF. Shared switcher order: Global, BIST, US stocks, Europe stocks, ETF. US and Europe preserve market/type in the URL and open the screener first. Global opens the combined result summary first.
 
 ## Live data and boundaries
